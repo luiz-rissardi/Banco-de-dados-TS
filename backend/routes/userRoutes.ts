@@ -16,6 +16,19 @@ class UserRoutes implements Routers{
             console.log("pegando dados")
             this.userControl.select(req,res)
         })
+        .post((req,res)=>{ 
+            console.log("enviando dados...") 
+            this.userControl.insert(req,res) 
+        })
+
+        this.Routes.route("/service/getUsers/:Query").get((req,res)=>{
+            try {
+                this.Controller.getByName(req,res)
+            } catch (error) {
+                console.log("falha a buscar por query")
+            }
+        })
+
         return this.Routes
     }
 }

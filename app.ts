@@ -36,4 +36,5 @@ class App {
     }
 }
 const app = new App(express(), new UserRoutes(new UserController(UserModel)),new Database())
+app.InitApp()
 //const app = new App()

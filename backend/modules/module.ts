@@ -21,7 +21,7 @@ class UserShema {
     }
 }
 
-const UserModel = model("user",new UserShema().createShema())
+const UserModel = model("users",new UserShema().createShema())
 
 export {
     UserModel

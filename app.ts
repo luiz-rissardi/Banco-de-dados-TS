@@ -5,40 +5,35 @@ import { UserRoutes } from "./backend/routes/userRoutes.js";
 import { RootRoutes } from "./backend/routes/routes.js";
 import dotenv from "dotenv"
 import cors from "cors";
-import express, { json } from "express";
+import express, { json, Express, Router } from "express";
 import { Routers } from "./backend/interface/Routers.js";
 import { Database } from "./backend/Db/Db.js";
 
 class App {
-    private aplication = express();
-    private ROOTROUTES: Routers;
-    private Database: Banco;
-    constructor(private rootroutes: Routers, private userContoller: UserController, private banco: Banco) {
-        this.ROOTROUTES = rootroutes
-        this.Database = banco
-        this.InitApp()
+    private aplication: Express;
+    private routes: Routers;
+    private Database:Banco;
+    constructor(private readonly exp: Express, private readonly route: Routers,private readonly base:Banco) {
+        this.aplication = exp
+        this.routes = route;
+        this.Database = base;
     }
-    private InitApp() {
+    InitApp() {
         try {
-            dotenv.config()
-            this.aplication.use(json);
-            this.aplication.use(cors);
-            this.aplication.use("/api", this.ROOTROUTES.CreateRoutes())
-            this.aplication.listen("4040", () => {
-                console.log("servidor conectado com sucesso !")
-                this.Database.Conect(process.env.CONNECT_STRING || "")
-
+            console.log("iniciando...");
+            dotenv.config();
+            this.aplication.use(json());
+            this.aplication.use(cors());
+            this.aplication.use("/api", this.routes.CreateRoutes())
+            this.aplication.listen("3000", () => {
+                console.log("servidor rodando")
+                console.log("iniciando banco de dados...")
+                this.Database.Conect(String(process.env.CONNECT_STRING))
             })
         } catch (error) {
-            console.log("erro ao inicializar a aplicação")
+            console.log("não foi possivel iniciar a aplicação")
         }
     }
 }
-
-const controller = new UserController(UserModel);
-const routes = new UserRoutes(controller)
-const rootroutes = new RootRoutes(routes)
-const database = new Database()
-const app = new App(rootroutes,controller,database)
-
+const app = new App(express(), new UserRoutes(new UserController(UserModel)),new Database())
 //const app = new App()

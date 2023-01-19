@@ -11,10 +11,13 @@ class UserController implements controller{
     }
     async select(req: express.Request, res: express.Response): Promise<void> {
         try {
-            console.log("buscando dados... ?")
+            console.log("buscando dados... ")
             const Response = await this.model.find()
             console.log("dados trazidos com sucesso")
-            console.log(Response)
+            res.json({
+                Response,
+                message:"sucesso!"
+            })
         } catch (error) {
             console.log("não foi possivel realizar a busca!")
         }

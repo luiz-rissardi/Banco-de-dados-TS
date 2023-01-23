@@ -1,9 +1,8 @@
-import { Model,Types, isValidObjectId } from "mongoose";
+import { Model } from "mongoose";
 import { User } from "../interface/User.js";
 import { controller } from "../interface/controller.js";
 import express from "express"
-import { ParamsDictionary } from "express-serve-static-core";
-import { ParsedQs } from "qs";
+
 
 
 class UserController implements controller{
@@ -13,17 +12,24 @@ class UserController implements controller{
     }
     
     async DeleteUser(req: express.Request, res: express.Response):Promise<void> {
-        throw new Error("Method not implemented.");
+        try {
+            const UserId = req.params.id;
+            await this.model.deleteOne({_id:UserId});
+            res.json({
+                message:"usuario apagado com sucesso!"
+            })
+        } catch (error) {
+            console.log("erro ao apagar dados")
+        }
     }
 
     async updateUser(req: express.Request, res: express.Response):Promise<void> {
         try {
             const user:User = req.body
             const id = req.params.id
-            const Response = await this.model.updateOne({_id:id},{...user})
+            await this.model.updateOne({_id:id},{...user})
             res.json({
                 message:"Usuario atualizado com sucesso",
-                Response
             })
         } catch (error) {
             console.log("não foi possivel atualizar os dados")
@@ -35,7 +41,7 @@ class UserController implements controller{
             const Response = await this.model.find()
             res.json({
                 Response,
-                message:"sucesso!"
+                message:"dados pegos com sucesso!"
             })
         } catch (error) {
             console.log("não foi possivel realizar a busca!")
@@ -51,7 +57,7 @@ class UserController implements controller{
             const Response = await this.Model.create(user) 
             res.json({ 
                 Response, 
-                message:"dados salvos com sucesso" 
+                message:"dados salvos com sucesso!" 
             }) 
         } catch (error) { 
             console.log("não foi possivel salvar no banco") 

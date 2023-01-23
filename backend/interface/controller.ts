@@ -1,6 +1,5 @@
 import { Model } from "mongoose";
 import { Request, Response} from "express"
-import { User } from "./User.js";
  
 interface controller{
     model:Model<any>;

@@ -1,5 +1,6 @@
 import { Model } from "mongoose";
 import { Request, Response} from "express"
+import { User } from "./User.js";
  
 interface controller{
     model:Model<any>;
@@ -7,6 +8,7 @@ interface controller{
     select(req:Request,res:Response):void
     getByName(req:Request,res:Response):void
     updateUser(req:Request,res:Response):void
+    DeleteUser(req:Request,res:Response):void
 }
 
 export {

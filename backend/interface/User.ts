@@ -1,7 +1,8 @@
 interface User{
     nome:string;
     sobrenome:string;
-    idade:number
+    idade:number;
+    _id:number;
 }
 
 export{

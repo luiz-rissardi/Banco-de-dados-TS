@@ -1,7 +1,9 @@
-import { Model } from "mongoose";
+import { Model,Types, isValidObjectId } from "mongoose";
 import { User } from "../interface/User.js";
 import { controller } from "../interface/controller.js";
 import express from "express"
+import { ParamsDictionary } from "express-serve-static-core";
+import { ParsedQs } from "qs";
 
 
 class UserController implements controller{
@@ -9,6 +11,25 @@ class UserController implements controller{
     constructor(private Model:Model<User>){
         this.model = Model
     }
+    
+    async DeleteUser(req: express.Request, res: express.Response):Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+
+    async updateUser(req: express.Request, res: express.Response):Promise<void> {
+        try {
+            const user:User = req.body
+            const id = req.params.id
+            const Response = await this.model.updateOne({_id:id},{...user})
+            res.json({
+                message:"Usuario atualizado com sucesso",
+                Response
+            })
+        } catch (error) {
+            console.log("não foi possivel atualizar os dados")
+        }
+    }
+
     async select(req: express.Request, res: express.Response): Promise<void> {
         try {
             const Response = await this.model.find()

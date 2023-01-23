@@ -29,6 +29,14 @@ class UserRoutes implements Routers{
             }
         })
 
+        this.Routes.route("/service/putUser/:id").put((req,res)=>{
+            try {
+                this.userControl.updateUser(req,res)
+            } catch (error) {
+                console.log("erro ao acessar a rota de upadate")
+            }
+        })
+
         return this.Routes
     }
 }

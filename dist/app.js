@@ -27,7 +27,7 @@ class App {
                 this.Database.Conect(String(process.env.CONNECT_STRING));
             });
         }
-        catch (error) {
+        catch (error) { 
             console.log("não foi possivel iniciar a aplicação");
         }
     }

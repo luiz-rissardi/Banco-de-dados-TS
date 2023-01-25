@@ -21,7 +21,7 @@ class App {
             this.aplication.use(json());
             this.aplication.use(cors());
             this.aplication.use("/api", this.routes.CreateRoutes());
-            this.aplication.listen("3000", () => {
+            this.aplication.listen(process.env.PORT || "3000", () => {
                 console.log("servidor rodando");
                 console.log("iniciando banco de dados...");
                 this.Database.Conect(String(process.env.CONNECT_STRING));

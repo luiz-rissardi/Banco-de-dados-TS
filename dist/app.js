@@ -21,13 +21,18 @@ class App {
             this.aplication.use(json());
             this.aplication.use(cors());
             this.aplication.use("/api", this.routes.CreateRoutes());
+            this.aplication.get("/", (req, res) => {
+                res.json({
+                    message: "funcionando"
+                });
+            });
             this.aplication.listen(process.env.PORT || "3000", () => {
                 console.log("servidor rodando");
                 console.log("iniciando banco de dados...");
                 this.Database.Conect(String(process.env.CONNECT_STRING));
             });
         }
-        catch (error) { 
+        catch (error) {
             console.log("não foi possivel iniciar a aplicação");
         }
     }

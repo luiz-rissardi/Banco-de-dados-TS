@@ -2,10 +2,9 @@ import { Banco } from "./backend/interface/banco.js";
 import { UserController } from "./backend/controller/controller.js";
 import { UserModel } from "./backend/modules/module.js";
 import { UserRoutes } from "./backend/routes/userRoutes.js";
-import { RootRoutes } from "./backend/routes/routes.js";
 import dotenv from "dotenv"
 import cors from "cors";
-import express, { json, Express, Router } from "express";
+import express, { json, Express } from "express";
 import { Routers } from "./backend/interface/Routers.js";
 import { Database } from "./backend/Db/Db.js";
 
